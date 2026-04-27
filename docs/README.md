@@ -42,5 +42,6 @@ This repo is educational and demo-oriented. The docs explain the current code
 path and recommended patterns, but they are not a promise of long-term API
 stability or production support.
 
-The package also supports local installation only right now. Clone this repo and
-install it from that local path rather than from npm.
+The package also supports local installation only right now. Start with
+[Getting started](./getting-started.md) for the full clone, build, and install
+flow rather than assuming the package is available from npm.

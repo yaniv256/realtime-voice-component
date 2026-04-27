@@ -22,15 +22,33 @@ before wiring the package into your production UI.
 
 ## Install From A Local Checkout
 
-This package currently supports local installation only. From your app, install
-it from a clone of this repo:
+This package currently supports local installation only. First prepare a checkout
+of the repo:
 
 ```bash
-npm install ../path/to/realtime-voice-component zod
+git clone https://github.com/openai/realtime-voice-component.git
+cd realtime-voice-component
+npm install
+npm run build
 ```
 
-Replace `../path/to/realtime-voice-component` with the path to your local clone.
-Once installed, import it as `realtime-voice-component`.
+Then, from your app, install that checkout:
+
+```bash
+npm install /absolute/path/to/realtime-voice-component zod
+```
+
+Replace `/absolute/path/to/realtime-voice-component` with the path to your local
+clone. Once installed, import it as `realtime-voice-component`.
+
+## Browser Requirements
+
+The runtime expects a browser environment with:
+
+- `mediaDevices`
+- `RTCPeerConnection`
+
+The package is meant for browser/client React code, not server-only rendering.
 
 ## Authentication
 

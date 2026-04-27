@@ -2,8 +2,9 @@
 
 ## Documentation Consistency
 
-- When changing package behavior, examples, or docs, reconcile `README.md`, `LLM.txt`, `docs/`, and `examples/` in the same change so they do not drift or contradict each other.
+- When changing package behavior, examples, or docs, reconcile `README.md`, `LLM.txt`, `docs/`, and `demo/` in the same change so they do not drift or contradict each other.
 - Before finishing a docs update, check that public API names, option names, defaults, and examples match the implementation.
+- In this repo, use `npm` commands in docs and contributor instructions.
 
 ## Commits
 
