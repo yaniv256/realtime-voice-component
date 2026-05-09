@@ -9,7 +9,7 @@ import { ChessDemoPage } from "./demos/chess";
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/realtime-voice-component">
       <DemoSessionProvider>
         <Toaster position="bottom-right" />
         <Routes>
