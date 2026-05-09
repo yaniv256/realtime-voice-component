@@ -10,6 +10,7 @@ const demoRoot = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   root: demoRoot,
+  base: '/realtime-voice-component/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: [
