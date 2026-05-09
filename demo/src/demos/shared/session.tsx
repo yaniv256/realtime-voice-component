@@ -36,7 +36,7 @@ function buildBaseControllerOptions(
     auth: { sessionEndpoint: `${import.meta.env.BASE_URL}session` },
     activationMode: "vad",
     model: "gpt-realtime-2",
-    outputMode: "tool-only",
+    outputMode: "text+audio",
     ...(options.instructions !== undefined ? { instructions: options.instructions } : {}),
     ...(options.postToolResponse !== undefined
       ? { postToolResponse: options.postToolResponse }
