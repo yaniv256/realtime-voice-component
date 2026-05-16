@@ -64,7 +64,7 @@ const VISUALLY_HIDDEN_STYLE: CSSProperties = {
   width: "1px",
 };
 
-type LauncherVisualState = "busy" | "connecting" | "error" | "idle" | "listening" | "live";
+type LauncherVisualState = "busy" | "connecting" | "error" | "idle" | "listening" | "live" | "muted";
 
 const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
@@ -213,6 +213,7 @@ function getWidgetStatus(
 function getLauncherVisualState(state: {
   activity: string;
   connected: boolean;
+  micMuted?: boolean;
   status: string;
 }): LauncherVisualState {
   if (state.status === "connecting" || state.activity === "connecting") {
@@ -235,6 +236,7 @@ function getLauncherVisualState(state: {
     return "listening";
   }
 
+  if (state.connected && state.micMuted) return "muted";
   return state.connected ? "live" : "idle";
 }
 
@@ -375,6 +377,14 @@ function renderLauncherIndicatorIcon(visualState: LauncherVisualState, unstyled:
           />
         </svg>
       );
+    case "muted":
+      return (
+        <svg aria-hidden="true" viewBox="0 0 16 16">
+          <rect fill="none" height="6.5" rx="2.75" stroke="currentColor" strokeWidth="1.5" width="5.5" x="5.25" y="2.25" />
+          <path d="M3.75 7.75a4.25 4.25 0 0 0 8.5 0M8 12v1.75M5.5 13.75h5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+          <line x1="2.5" x2="13.5" y1="2.5" y2="13.5" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
+        </svg>
+      );
     default:
       return (
         <svg aria-hidden="true" viewBox="0 0 16 16">
@@ -411,6 +421,7 @@ export function VoiceControlWidget({
   controller,
   controllerRef,
   draggable = true,
+  dragBoundaryTop = 0,
   persistPosition = true,
   snapToCorners = false,
   snapInset,
@@ -609,7 +620,7 @@ export function VoiceControlWidget({
 
     const nextPosition = {
       x: event.clientX - dragOffsetRef.current.x,
-      y: event.clientY - dragOffsetRef.current.y,
+      y: Math.max(dragBoundaryTop, event.clientY - dragOffsetRef.current.y),
     };
 
     setWidgetPosition(nextPosition);
@@ -670,9 +681,11 @@ export function VoiceControlWidget({
       ? `${resolvedLabels.launcher} is connecting`
       : launcherVisualState === "error"
         ? `Retry ${resolvedLabels.launcher}`
-        : runtime.connected
-          ? `Disconnect ${resolvedLabels.launcher}`
-          : `Start ${resolvedLabels.launcher}`;
+        : launcherVisualState === "muted"
+          ? `Unmute ${resolvedLabels.launcher}`
+          : runtime.connected
+            ? `Disconnect ${resolvedLabels.launcher}`
+            : `Start ${resolvedLabels.launcher}`;
 
   const handleLauncherAction = () => {
     if (launcherVisualState === "connecting") {
