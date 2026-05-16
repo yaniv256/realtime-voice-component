@@ -122,6 +122,14 @@
   box-shadow: 0 12px 28px rgba(224, 49, 49, 0.14);
 }
 
+.vc-launcher[data-vc-launcher-state="muted"] {
+  color: #868e96;
+  background: #f1f3f5;
+  border-color: #adb5bd;
+  box-shadow: none;
+  opacity: 0.8;
+}
+
 .vc-launcher-action,
 .vc-launcher-handle {
   position: relative;
