@@ -29,6 +29,9 @@
   --vc-launcher-error-bg: #fff5f5;
   --vc-launcher-error-border: #ff8787;
   --vc-launcher-error-ink: #e03131;
+  --vc-launcher-muted-bg: #f1f3f5;
+  --vc-launcher-muted-border: #adb5bd;
+  --vc-launcher-muted-ink: #868e96;
 }
 
 .vc-root {
@@ -120,6 +123,13 @@
   background: var(--vc-launcher-error-bg);
   border-color: var(--vc-launcher-error-border);
   box-shadow: 0 12px 28px rgba(224, 49, 49, 0.14);
+}
+
+.vc-launcher[data-vc-launcher-state="muted"] {
+  color: var(--vc-launcher-muted-ink);
+  background: var(--vc-launcher-muted-bg);
+  border-color: var(--vc-launcher-muted-border);
+  box-shadow: none;
 }
 
 .vc-launcher-action,
